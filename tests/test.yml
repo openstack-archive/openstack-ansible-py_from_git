@@ -1,0 +1,41 @@
+---
+# Copyright 2015, Rackspace US, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+- name: Playbook for role testing
+  hosts: localhost
+  connection: local
+  roles:
+    - role: "{{ rolename | basename }}"
+      git_repo: "https://github.com/lxc/python2-lxc"
+      git_dest: "/opt/lxc_python2_{{ git_install_branch|replace('/', '_') }}"
+      git_install_branch: "{{ _install_branch }}"
+  post_tasks:
+    - name: Check for cloned git repo
+      stat:
+        path: "/opt/lxc_python2_{{ _install_branch|replace('/', '_') }}"
+      register: cloned_repo_dir
+    - name: Check for cloned git repo
+      stat:
+        path: "/opt/lxc_python2_{{ _install_branch|replace('/', '_') }}/.git"
+      register: cloned_repo_git_dir
+    - name: Check the py from git package is installed
+      command: pip freeze | grep python2-lxc
+    - name: Check role functions
+      assert:
+        that:
+          - "cloned_repo_dir.stat.isdir"
+          - "cloned_repo_git_dir.stat.isdir"
+  vars:
+    _install_branch: master

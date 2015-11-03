@@ -1,0 +1,3 @@
+- name: pip_install
+  src: https://github.com/os-cloud/openstack-ansible-pip_install
+  version: master
