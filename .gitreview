@@ -1,0 +1,4 @@
+[gerrit]
+host=review.openstack.org
+port=29418
+project=openstack/openstack-ansible-py_from_git.git
