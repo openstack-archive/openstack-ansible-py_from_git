@@ -18,20 +18,20 @@
   connection: local
   roles:
     - role: "{{ rolename | basename }}"
-      git_repo: "https://github.com/lxc/python2-lxc"
-      git_dest: "/opt/lxc_python2_{{ git_install_branch|replace('/', '_') }}"
+      git_repo: "{{ _repo  }}"
+      git_dest: "{{ _dest }}"
       git_install_branch: "{{ _install_branch }}"
   post_tasks:
     - name: Check for cloned git repo
       stat:
-        path: "/opt/lxc_python2_{{ _install_branch|replace('/', '_') }}"
+        path: "{{ _dest }}"
       register: cloned_repo_dir
     - name: Check for cloned git repo
       stat:
-        path: "/opt/lxc_python2_{{ _install_branch|replace('/', '_') }}/.git"
+        path: "{{ _dest }}/.git"
       register: cloned_repo_git_dir
     - name: Check the py from git package is installed
-      command: pip freeze | grep python2-lxc
+      shell: pip freeze | grep 'openstacksdk'
     - name: Check role functions
       assert:
         that:
@@ -39,3 +39,6 @@
           - "cloned_repo_git_dir.stat.isdir"
   vars:
     _install_branch: master
+    _repo: "https://github.com/openstack/python-openstacksdk"
+    _dest: "/tmp/{{ _repo | basename }}_{{ git_install_branch | replace('/', '_') }}"
+
