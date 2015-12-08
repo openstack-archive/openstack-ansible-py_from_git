@@ -1,3 +1,4 @@
 - name: pip_install
-  src: https://github.com/os-cloud/openstack-ansible-pip_install
+  src: https://git.openstack.org/openstack/openstack-ansible-pip_install
+  scm: git
   version: master
