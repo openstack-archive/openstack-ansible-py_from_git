@@ -1,0 +1,8 @@
+Verified+2: Jenkins
+Code-Review+2: Jesse Pretorius <jesse.pretorius@rackspace.co.uk>
+Workflow+1: Jesse Pretorius <jesse.pretorius@rackspace.co.uk>
+Submitted-by: Jenkins
+Submitted-at: Wed, 09 Dec 2015 10:23:27 +0000
+Reviewed-on: https://review.openstack.org/254937
+Project: openstack/openstack-ansible-py_from_git
+Branch: refs/heads/master
