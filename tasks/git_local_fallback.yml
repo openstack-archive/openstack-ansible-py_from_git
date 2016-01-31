@@ -1,5 +1,5 @@
 ---
-# Copyright 2014, Rackspace US, Inc.
+# Copyright 2016, Logan Vig <logan2211@gmail.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,33 +14,25 @@
 # limitations under the License.
 
 - name: Get package from git
-  git:
+  local_action:
+    module: git
     repo: "{{ git_repo }}"
-    dest: "{{ git_dest }}"
+    dest: "{{ git_local_dest }}"
     version: "{{ git_install_branch }}"
     force: yes
-  when: not git_force_local | bool
-  ignore_errors: True
-  register: git_clone
-  until: git_clone|success
+  register: git_clone_fallback
+  until: git_clone_fallback|success
   retries: 5
   delay: 2
+  run_once: true
   tags:
     - git-clone
+    - git-clone-local
 
-- include: git_local_fallback.yml
-  when: >
-    git_clone is defined and git_clone|failed
-    or git_force_local | bool
-
-- name: Install pip packages
-  pip:
-    name: "{{ git_dest }}"
-    state: present
-    extra_args: "{{ pip_install_options|default('') }}"
-  register: install_packages
-  until: install_packages|success
-  retries: 5
-  delay: 2
+- name: Distribute package from git
+  synchronize:
+    src: "{{ git_local_dest }}/"
+    dest: "{{ git_dest }}"
   tags:
-    - pip-install
+    - git-clone
+    - git-clone-distribute
