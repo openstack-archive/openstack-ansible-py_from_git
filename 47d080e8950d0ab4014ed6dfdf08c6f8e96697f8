@@ -1,0 +1,9 @@
+Code-Review+2: Matt Thompson <mattt@defunct.ca>
+Code-Review+2: Hugh Saunders <hugh@wherenow.org>
+Workflow+1: Hugh Saunders <hugh@wherenow.org>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Thu, 04 Feb 2016 13:27:32 +0000
+Reviewed-on: https://review.openstack.org/275693
+Project: openstack/openstack-ansible-py_from_git
+Branch: refs/heads/master
