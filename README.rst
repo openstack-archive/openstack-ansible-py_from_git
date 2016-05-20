@@ -1,19 +1,8 @@
-OpenStack install python package from git
-#########################################
-:tags: openstack, pip, git, cloud, ansible
-:category: \*nix
+OpenStack-Ansible py_from_git role
+##################################
 
-Role for installing a python package from a git repository.
+This Ansible role is no longer maintained or used.
 
-.. code-block:: yaml
-
-    - name: Install python2 lxc
-      hosts: hosts
-      user: root
-      roles:
-        - role: "py_from_git"
-          git_repo: "https://github.com/lxc/python2-lxc"
-          git_dest: "/opt/lxc_python2_{{ git_install_branch|replace('/', '_') }}"
-          git_install_branch: master
-          tags:
-            - "lxc-libs"
+For any further questions, please email
+openstack-dev@lists.openstack.org or join #openstack-ansible on
+Freenode.
